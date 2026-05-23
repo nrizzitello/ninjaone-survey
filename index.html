@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How did we do?</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #f5f3ee;
+         min-height: 100vh; display: flex; align-items: center;
+         justify-content: center; padding: 2rem 1rem; }
+  .card { background: #fff; border-radius: 24px; padding: 3rem 2.5rem;
+          max-width: 480px; width: 100%;
+          box-shadow: 0 2px 40px rgba(0,0,0,0.07); text-align: center; }
+  .logo-box { width: 80px; height: 56px; background: #0d0d1f;
+              border-radius: 14px; display: inline-flex; align-items: center;
+              justify-content: center; margin-bottom: 1rem;
+              overflow: hidden; padding: 6px 10px; }
+  .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 2rem;
+       color: #12122a; margin-bottom: 0.5rem; }
+  .subtitle { font-size: 0.95rem; color: #888; margin-bottom: 0.25rem; }
+  .ticket-id { font-size: 0.8rem; color: #bbb; margin-bottom: 2rem;
+               font-family: monospace; }
+  .stars { display: flex; justify-content: center; gap: 10px;
+           margin-bottom: 0.5rem; }
+  .star { width: 52px; height: 52px; cursor: pointer;
+          transition: transform 0.15s ease; }
+  .star:hover { transform: scale(1.15); }
+  .star svg { width: 100%; height: 100%; }
+  .star .fill { fill: #e8e4dc; transition: fill 0.15s ease; }
+  .star.active .fill, .star.hovered .fill { fill: #f5a623; }
+  .star-labels { display: flex; justify-content: space-between;
+                 padding: 0 4px; margin-bottom: 2rem; }
+  .star-labels span { font-size: 0.72rem; color: #bbb; }
+  .rating-text { font-size: 1rem; font-weight: 600; color: #12122a;
+                 height: 1.5rem; margin-bottom: 1.5rem; }
+  textarea { width: 100%; border: 1.5px solid #e8e4dc; border-radius: 12px;
+             padding: 0.9rem 1rem; font-family: 'DM Sans', sans-serif;
+             font-size: 0.95rem; color: #12122a; resize: none;
+             min-height: 110px; margin-bottom: 1.5rem; outline: none;
+             background: #faf9f7; }
+  textarea:focus { border-color: #1a1060; }
+  button[type="submit"] { width: 100%; padding: 1rem;
+    background: #1a1060; color: #fff; border: none; border-radius: 12px;
+    font-size: 1rem; font-weight: 600; cursor: pointer; }
+  button[type="submit"]:hover { background: #2d1e9e; }
+  button[type="submit"]:disabled { background: #ccc; cursor: default; }
+  .thanks { display: none; flex-direction: column;
+            align-items: center; gap: 1rem; }
+  .thanks h2 { font-family: 'DM Serif Display', serif;
+               font-size: 1.6rem; color: #12122a; }
+  .thanks p { color: #888; font-size: 0.95rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="survey-form">
+    <div style="margin-bottom:2rem">
+      <div class="logo-box">
+        <!-- Replace the src below with your actual Citanex logo file -->
+        <img src="logo.png" alt="Citanex">
+      </div>
+      <h1>How did we do?</h1>
+      <p class="subtitle">Your feedback helps us improve</p>
+      <p class="ticket-id">Ticket #<span id="ticket-num">&#8212;</span></p>
+    </div>
+    <div class="stars" id="stars">
+      <div class="star" data-val="1"><svg viewBox="0 0 52 52">
+        <polygon class="fill" points="26,5 32,20 48,20 35,30 40,46 26,36 12,46 17,30 4,20 20,20"/>
+      </svg></div>
+      <div class="star" data-val="2"><svg viewBox="0 0 52 52">
+        <polygon class="fill" points="26,5 32,20 48,20 35,30 40,46 26,36 12,46 17,30 4,20 20,20"/>
+      </svg></div>
+      <div class="star" data-val="3"><svg viewBox="0 0 52 52">
+        <polygon class="fill" points="26,5 32,20 48,20 35,30 40,46 26,36 12,46 17,30 4,20 20,20"/>
+      </svg></div>
+      <div class="star" data-val="4"><svg viewBox="0 0 52 52">
+        <polygon class="fill" points="26,5 32,20 48,20 35,30 40,46 26,36 12,46 17,30 4,20 20,20"/>
+      </svg></div>
+      <div class="star" data-val="5"><svg viewBox="0 0 52 52">
+        <polygon class="fill" points="26,5 32,20 48,20 35,30 40,46 26,36 12,46 17,30 4,20 20,20"/>
+      </svg></div>
+    </div>
+    <div class="star-labels"><span>Poor</span><span>Excellent</span></div>
+    <div class="rating-text" id="rating-text"></div>
+    <p style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;
+              color:#aaa;margin-bottom:0.5rem;text-align:left">
+      Any comments? (optional)</p>
+    <textarea id="comment" placeholder="Tell us about your experience..."></textarea>
+    <button type="submit" id="submit-btn" disabled onclick="submitSurvey()">
+      Submit feedback</button>
+  </div>
+  <div class="thanks" id="thanks-panel">
+    <div style="width:64px;height:64px;background:#eafaf1;border-radius:50%;
+                display:flex;align-items:center;justify-content:center;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M6 16L13 23L26 9" stroke="#27ae60" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Thank you!</h2>
+    <p>Your feedback has been received.<br>We appreciate you taking the time.</p>
+  </div>
+</div>
+<script>
+  const SAVE_URL = 'https://defaultc9114b60e2b244d793752714acd7ce.90.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/83561e8e0d134aca89a4dc8b16e22be4/triggers/manual/paths/invoke?api-version=1;
+  const labels = ['', 'Poor', 'Below average', 'Average', 'Good', 'Excellent!'];
+  let selected = 0;
+  const stars = document.querySelectorAll('.star');
+  const ratingText = document.getElementById('rating-text');
+  const submitBtn = document.getElementById('submit-btn');
+  const params = new URLSearchParams(window.location.search);
+  const ticketId = params.get('ticket') || '';
+  const preRating = parseInt(params.get('rating') || '0');
+  const email = params.get('email') || '';
+  if (ticketId) document.getElementById('ticket-num').textContent = ticketId;
+  function setRating(val) {
+    selected = val;
+    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= val));
+    ratingText.textContent = labels[val];
+    submitBtn.disabled = false;
+  }
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const v = parseInt(star.dataset.val);
+      stars.forEach(s => s.classList.toggle('hovered', parseInt(s.dataset.val) <= v));
+    });
+    star.addEventListener('mouseleave', () => stars.forEach(s => s.classList.remove('hovered')));
+    star.addEventListener('click', () => setRating(parseInt(star.dataset.val)));
+  });
+  if (preRating >= 1 && preRating <= 5) setRating(preRating);
+  function submitSurvey() {
+    const comment = document.getElementById('comment').value;
+    fetch(SAVE_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ticket: ticketId, email: email, rating: selected,
+        comment: comment, timestamp: new Date().toISOString()
+      })
+    }).catch(() => {});
+    document.getElementById('survey-form').style.display = 'none';
+    document.getElementById('thanks-panel').style.display = 'flex';
+  }
+</script>
+</body>
+</html>
