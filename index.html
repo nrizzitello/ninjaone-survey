@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How did we do?</title>
+<title>How was your experience with us?</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,7 +13,7 @@
   .card { position: relative; background: #151a3c; border-radius: 24px;
           padding: 3rem 2.5rem; max-width: 480px; width: 100%;
           box-shadow: 0 8px 50px rgba(13,13,31,0.35); text-align: center; }
-  .logo-box { width: 220px; height: 110px; background: #1e2450;
+  .logo-box { width: 270px; height: 135px; background: #1e2450;
               border-radius: 16px; display: inline-flex; align-items: center;
               justify-content: center; margin-bottom: 1.25rem;
               overflow: hidden; padding: 14px 18px;
@@ -70,7 +70,7 @@
         <!-- Replace the src below with your actual Citanex logo file -->
         <img src="logo.png" alt="Citanex">
       </div>
-      <h1>How did we do?</h1>
+      <h1>How was your experience with us?</h1>
       <p class="subtitle">Your feedback helps us improve</p>
       <p class="ticket-id">Ticket #<span id="ticket-num">&#8212;</span></p>
     </div>
@@ -93,8 +93,9 @@
     </div>
     <div class="star-labels"><span>Poor</span><span>Excellent</span></div>
     <div class="rating-text" id="rating-text"></div>
-    <p style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;
-              color:#c3c7de;margin-bottom:0.5rem;text-align:left">
+    <p style="font-size:0.8rem;font-weight:bold;text-transform:uppercase;
+              letter-spacing:0.1em;color:#c3c7de;margin-bottom:0.5rem;
+              text-align:left">
       Any comments? (optional)</p>
     <textarea id="comment" placeholder="Tell us about your experience..."></textarea>
     <button type="submit" id="submit-btn" disabled onclick="submitSurvey()">
