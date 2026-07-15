@@ -67,8 +67,10 @@
   <div id="survey-form">
     <div style="margin-bottom:2rem">
       <div class="logo-box">
-        <!-- Replace the src below with your actual Citanex logo file -->
-        <img src="logo.png" alt="Citanex">
+        <!-- Tries logo.png first, then image.png, then image.jfif -->
+        <img src="logo.png" alt="Citanex"
+             onerror="if(!this.dataset.n){this.dataset.n=1;this.src='image.png';}
+                      else if(this.dataset.n==1){this.dataset.n=2;this.src='image.jfif';}">
       </div>
       <h1>How was your experience with us?</h1>
       <p class="subtitle">Your feedback helps us improve</p>
